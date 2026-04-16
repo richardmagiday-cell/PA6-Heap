@@ -1,0 +1,72 @@
+Mode set to ADOPTION. Rebuilding priorities...
+Added Mittens1825.
+Added Petra1680.
+Added Hana489.
+Added Zoe435.
+Added Pumpkin8929.
+Added Percy107.
+Added Petra3528.
+Added Cleo5882.
+Added Milo8786.
+Added Pika5926.
+Top[ADOPTION]: [ADOPTION] (key=232.70, name=Zoe435, breed=Norwegian, age=6, friend=91, health=83)
+[1] Zoe435 (key=232.70, ADOPTION)
+[2] Petra1680 (key=178.00, ADOPTION)
+[3] Pumpkin8929 (key=168.80, ADOPTION)
+Added Whiskers3734.
+Updated Hana489: AGE=5. Priority adjusted.
+Serve now: Zoe435 (key=232.70, name=Zoe435, breed=Norwegian, age=6, friend=91, health=83)
+Serve now: Petra1680 (key=178.00, name=Petra1680, breed=Norwegian, age=2, friend=75, health=54)
+Updated Pika5926: FRIEND=27. Priority adjusted.
+Updated Milo8786: HEALTH=74. Priority adjusted.
+Cat Cleo2505 not found.
+Removed Petra3528.
+Updated Mittens1825: AGE=17. Priority adjusted.
+Updated Pumpkin8929: HEALTH=77. Priority adjusted.
+Added Luna2647.
+Added Cleo5948.
+Cat Petra1680 not found.
+Added Whiskers7788.
+Updated Percy107: QUARANTINE=0.
+Removed Mittens1825.
+Serve now: Pumpkin8929 (key=171.00, name=Pumpkin8929, breed=Bengal, age=7, friend=57, health=77)
+Added Bella1161.
+Removed Luna2647.
+Updated Hana489: FRIEND=54. Priority adjusted.
+Added Whiskers1613.
+Removed Whiskers3734.
+Updated Pika5926: QUARANTINE=0.
+Updated Cleo5948: AGE=7. Priority adjusted.
+Added Loki7887.
+Cat Petra1680 not found.
+Removed Cleo5948.
+Removed Whiskers7788.
+Added Leo1123.
+Serve now: Whiskers1613 (key=187.70, name=Whiskers1613, breed=Ragdoll, age=12, friend=93, health=43)
+Added Caesar6869.
+Serve now: Leo1123 (key=169.20, name=Leo1123, breed=Scottish, age=2, friend=86, health=30)
+Removed Percy107.
+Cat Zoe9225 not found.
+Added Percy2171.
+Updated Loki7887: HEALTH=67. Priority adjusted.
+Added Marble9087.
+Cat Whiskers1613 not found.
+Cat Leo1123 not found.
+Added Bella3336.
+Added Caesar6940.
+Top[ADOPTION]: [ADOPTION] (key=153.30, name=Hana489, breed=DSH, age=5, friend=54, health=64)
+Added Cleo1233.
+Cat Luna654 not found.
+Serve now: Hana489 (key=153.30, name=Hana489, breed=DSH, age=5, friend=54, health=64)
+Added Simba407.
+Serve now: Simba407 (key=210.20, name=Simba407, breed=Siamese, age=10, friend=100, health=52)
+Removed Cleo1233.
+Updated Bella1161: AGE=7. Priority adjusted.
+Added Fudge6529.
+Removed Cleo5882.
+Removed Milo8786.
+Added Zoe7120.
+Updated Marble9087: QUARANTINE=0.
+Removed Percy2171.
+Serve now: Zoe7120 (key=165.70, name=Zoe7120, breed=MaineCoon, age=10, friend=55, health=77)
+Added Whiskers5410.

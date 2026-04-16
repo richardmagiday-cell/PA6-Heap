@@ -1,0 +1,9 @@
+Mode set to ADOPTION. Rebuilding priorities...
+Added Coco.
+Added Hana.
+Updated Coco: QUARANTINE=1.
+Updated Hana: QUARANTINE=1.
+No adoptable cats available.
+Updated Hana: QUARANTINE=0.
+Serve now: Hana (key=238.60, name=Hana, breed=DSH, age=3, friend=92, health=85)
+Featured breed set to Ragdoll with alpha=1.50. Rebuilding priorities...

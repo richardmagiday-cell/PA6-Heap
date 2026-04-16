@@ -1,0 +1,13 @@
+Mode set to ADOPTION. Rebuilding priorities...
+Added Mittens.
+Added Petra.
+Added Hana.
+Top[ADOPTION]: [ADOPTION] (key=178.00, name=Petra, breed=Norwegian, age=2, friend=75, health=54)
+[1] Petra (key=178.00, ADOPTION)
+[2] Hana (key=112.60, ADOPTION)
+[3] Mittens (key=74.80, ADOPTION)
+Serve now: Petra (key=178.00, name=Petra, breed=Norwegian, age=2, friend=75, health=54)
+Cat Bella not found.
+Updated Hana: QUARANTINE=1.
+Serve now: Mittens (key=74.80, name=Mittens, breed=Ragdoll, age=8, friend=31, health=28)
+No adoptable cats available.

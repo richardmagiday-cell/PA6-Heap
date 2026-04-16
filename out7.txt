@@ -1,0 +1,45 @@
+Mode set to ADOPTION. Rebuilding priorities...
+Added Mittens1825.
+Added Petra1680.
+Added Hana489.
+Added Zoe435.
+Added Pumpkin8929.
+Added Percy107.
+Added Petra3528.
+Added Cleo5882.
+Added Milo8786.
+Added Pika5926.
+Top[ADOPTION]: [ADOPTION] (key=232.70, name=Zoe435, breed=Norwegian, age=6, friend=91, health=83)
+[1] Zoe435 (key=232.70, ADOPTION)
+[2] Petra1680 (key=178.00, ADOPTION)
+[3] Pumpkin8929 (key=168.80, ADOPTION)
+Added Whiskers3734.
+Updated Hana489: AGE=5. Priority adjusted.
+Serve now: Zoe435 (key=232.70, name=Zoe435, breed=Norwegian, age=6, friend=91, health=83)
+Serve now: Petra1680 (key=178.00, name=Petra1680, breed=Norwegian, age=2, friend=75, health=54)
+Updated Pika5926: FRIEND=27. Priority adjusted.
+Updated Milo8786: HEALTH=74. Priority adjusted.
+Cat Cleo2505 not found.
+Removed Petra3528.
+Updated Mittens1825: AGE=17. Priority adjusted.
+Updated Pumpkin8929: HEALTH=77. Priority adjusted.
+Added Luna2647.
+Added Cleo5948.
+Updated Milo8786: HEALTH=98. Priority adjusted.
+Updated Pika5926: FRIEND=27. Priority adjusted.
+Serve now: Pumpkin8929 (key=171.00, name=Pumpkin8929, breed=Bengal, age=7, friend=57, health=77)
+Serve now: Milo8786 (key=115.40, name=Milo8786, breed=DSH, age=12, friend=10, health=98)
+Removed Whiskers3734.
+Serve now: Hana489 (key=113.30, name=Hana489, breed=DSH, age=5, friend=29, health=64)
+Removed Mittens1825.
+Mode set to TRIAGE. Rebuilding priorities...
+Added Whiskers7954.
+Cat Milo8786 not found.
+Updated Cleo5882: AGE=7. Priority adjusted.
+Added Oreo7351.
+Updated Luna2647: QUARANTINE=0.
+Serve now: Cleo5882 (key=13.75, name=Cleo5882, breed=MaineCoon, age=7, friend=5, health=93)
+Serve now: Whiskers7954 (key=20.20, name=Whiskers7954, breed=Tux, age=17, friend=16, health=92)
+Cat Milo8786 not found.
+Updated Cleo5948: FRIEND=19. Priority adjusted.
+Added Fudge959.
