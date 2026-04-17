@@ -131,10 +131,10 @@ void insertCat(Heap *heap, Cat *cat)
 void removeAt(Heap *heap, int idx)
 {
     heap->data[idx] = heap->data[heap->size - 1]; // overwrite idx with last element
-    heap->size--;                                  // shrink the heap
+    heap->size--;                                 // shrink the heap
     if (idx < heap->size)
     {
-        heapifyUp(heap, idx);   // only one of these will actually move the node
+        heapifyUp(heap, idx); // only one of these will actually move the node
         heapifyDown(heap, idx);
     }
 }
@@ -156,7 +156,7 @@ int findByName(Heap *heap, const char *name)
 void rebuildHeap(Heap *heap)
 {
 
-    for (int i = 0; i < heap->size; i++)    // Step 1: recompute keys
+    for (int i = 0; i < heap->size; i++) // Step 1: recompute keys
     {
         heap->data[i].key = computeKey(&heap->data[i],
                                        heap->mode,
@@ -164,39 +164,43 @@ void rebuildHeap(Heap *heap)
                                        heap->feat_alpha);
     }
 
-
     for (int i = heap->size / 2 - 1; i >= 0; i--)
     {
         heapifyDown(heap, i); // bottom-up heapify
     }
 }
 
-/*
- * MODE <ADOPTION|TRIAGE>
- * Output: "Mode set to <MODE>. Rebuilding priorities..."
- */
+// handle mode change
 void handleMode(Heap *heap, char *modeStr)
 {
-    /* TODO:
-     * if strcmp(modeStr, "ADOPTION") == 0: heap->mode = MODE_ADOPTION;
-     * else:                                heap->mode = MODE_TRIAGE;
-     * rebuildHeap(heap);
-     * printf("Mode set to %s. Rebuilding priorities...\n", modeStr);
-     */
+    if (strcmp(modeStr, "ADOPTION") == 0) // max-heap: higher key = higher priority
+        heap->mode = MODE_ADOPTION;
+    else // min-heap: lower key = higher priority
+        heap->mode = MODE_TRIAGE;
+
+    rebuildHeap(heap); // recompute all keys and re-heapify
+    printf("Mode set to %s. Rebuilding priorities...\n", modeStr);
 }
 
-/*
- * ADD <name> <breed> <age> <friend> <health>
- * Output (success):   "Added <name>."
- * Output (duplicate): "Name <name> already exists."
- */
+//add new cat, if cat already exist find it and let user know.
 void handleAdd(Heap *heap, char *name, char *breed, int age, int friend, int health)
 {
-    /* TODO:
-     * if findByName(heap, name) != -1: printf("Name %s already exists.\n", name); return;
-     * Build Cat, set key via computeKey, call insertCat.
-     * printf("Added %s.\n", name);
-     */
+    if (findByName(heap, name) != -1) // duplicate check: -1 means not found
+    {
+        printf("Name %s already exists.\n", name);
+        return;
+    }
+
+    Cat cat;
+    strcpy(cat.name, name); // set cat properties
+    strcpy(cat.breed, breed);
+    cat.age = age;
+    cat.friend = friend;
+    cat.health = health;
+    cat.quarantine = 0;                                                         // new cats start un-quarantined
+    cat.key = computeKey(&cat, heap->mode, heap->feat_breed, heap->feat_alpha); // compute priority
+    insertCat(heap, &cat);                                                      // add to heap
+    printf("Added %s.\n", name);
 }
 
 /*
