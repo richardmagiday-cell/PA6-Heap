@@ -155,8 +155,8 @@ int findByName(Heap *heap, const char *name)
  */
 void rebuildHeap(Heap *heap)
 {
-    /* Step 1: recompute keys */
-    for (int i = 0; i < heap->size; i++)
+
+    for (int i = 0; i < heap->size; i++)    // Step 1: recompute keys
     {
         heap->data[i].key = computeKey(&heap->data[i],
                                        heap->mode,
@@ -164,10 +164,10 @@ void rebuildHeap(Heap *heap)
                                        heap->feat_alpha);
     }
 
-    /* Step 2: bottom-up heapify (Floyd's algorithm) */
+
     for (int i = heap->size / 2 - 1; i >= 0; i--)
     {
-        heapifyDown(heap, i);
+        heapifyDown(heap, i); // bottom-up heapify
     }
 }
 
