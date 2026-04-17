@@ -122,34 +122,29 @@ void heapifyDown(Heap *heap, int idx)
 // Insert cat into heap; cat->key should already be set
 void insertCat(Heap *heap, Cat *cat)
 {
-    /* TODO:
-     * heap->data[heap->size] = *cat;
-     * heapifyUp(heap, heap->size);
-     * heap->size++;
-     */
+    heap->data[heap->size] = *cat; // place at end
+    heapifyUp(heap, heap->size);   // restore heap order
+    heap->size++;                  // grow the heap
 }
 
-/*
- * Remove the cat at position idx from the heap.
- * Restores heap property after removal.
- */
+// Remove the cat at position idx from the heap.
 void removeAt(Heap *heap, int idx)
 {
-    /* TODO:
-     * Overwrite idx with the last element.
-     * heap->size--
-     * If idx < heap->size, call both heapifyUp and heapifyDown
-     * (only one will actually move the node, but calling both is safe).
-     */
+    heap->data[idx] = heap->data[heap->size - 1]; // overwrite idx with last element
+    heap->size--;                                  // shrink the heap
+    if (idx < heap->size)
+    {
+        heapifyUp(heap, idx);   // only one of these will actually move the node
+        heapifyDown(heap, idx);
+    }
 }
 
-/*
- * Linear scan for a cat by name.
- * Returns the heap index, or -1 if not found.
- */
+// scan for a cat by name. Returns the heap index, or -1 if not found.
 int findByName(Heap *heap, const char *name)
 {
-    /* TODO: loop over heap->data[0..size-1], strcmp on name */
+    for (int i = 0; i < heap->size; i++)
+        if (strcmp(heap->data[i].name, name) == 0) // found a match
+            return i;
     return -1;
 }
 
