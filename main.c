@@ -288,7 +288,7 @@ void cmd_update(Shelter *S, const char *name, const char *field, int new_value)
     if (strcmp(field, "QUARANTINE") == 0)
     {
 
-        // Quarantine only changes the flag, not the numeric key.
+        // Quarantine only changes the flag
         cat->quarantine = new_value;
         percolate_up(&S->heap, idx);
         percolate_down(&S->heap, idx);
@@ -327,7 +327,7 @@ void cmd_update(Shelter *S, const char *name, const char *field, int new_value)
     }
 }
 
-// Finds a cat by name, removes it from the heap, and frees its memory.
+// Finds a cat by name, remove it, and frees its memory.
 void cmd_remove(Shelter *S, const char *name)
 {
     int idx = find_cat_index(&S->heap, name);
@@ -339,7 +339,7 @@ void cmd_remove(Shelter *S, const char *name)
     Cat *cat = S->heap.arr[idx];
     heap_remove_at(&S->heap, idx);
 
-    // Free the cat's strings and then the cat struct itself.
+    // Free the cat
     free(cat->name);
     free(cat->breed);
     free(cat);
@@ -355,7 +355,7 @@ void cmd_peek(const Shelter *S)
         return;
     }
 
-    // The root is always the highest-priority cat.
+    // The root is always the highest priority cat.
     Cat *top = S->heap.arr[1];
     const char *modeStr = (S->mode == MODE_ADOPTION) ? "ADOPTION" : "TRIAGE";
     printf("Top[%s]: [%s] (key=%.2f, name=%s, breed=%s, age=%d, friend=%d, health=%d)\n",
@@ -376,7 +376,7 @@ void cmd_serve(Shelter *S)
     if (S->mode == MODE_ADOPTION)
     {
 
-        // Pop cats off the top until we find one that isn't quarantined.
+        // Pop cats off the top until find one that isn't quarantined.
         Cat **skipped = malloc(sizeof(Cat *) * S->heap.size);
         int skipCount = 0;
         Cat *served = NULL;
