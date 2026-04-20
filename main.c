@@ -64,8 +64,8 @@ void cmd_mode(Shelter *S, const char *mode_str);
 void cmd_featured(Shelter *S, const char *breed, double alpha);
 void cmd_print(const Shelter *S, int k);
 
-// Returns 1 if cat a has higher priority than cat b, and -1 otherwise.
-// In adoption mode higher key wins; in triage mode lower key wins.
+// Returns 1 if cat a has higher priority than cat b, and -1 otherwise
+// In adoption mode higher key wins; in triage mode lower key wins
 int compareTo(Cat *a, Cat *b, Mode mode)
 {
     if (mode == MODE_ADOPTION)
@@ -83,25 +83,25 @@ int compareTo(Cat *a, Cat *b, Mode mode)
             return -1;
     }
 
-    // Keys are equal, so we check the name to break the tie.
+    // Keys are equal, so we check the name to break the tie
     int cmp = strcmp(a->name, b->name);
     if (cmp < 0)
         return 1;
     if (cmp > 0)
         return -1;
 
-    // Names are also equal, so the cat that arrived earlier wins.
+    // Names are also equal, so the cat that arrived earlier wins
     if (a->arrival_id < b->arrival_id)
         return 1;
     return -1;
 }
 
-// Computes the adoption priority key for a cat using the featured breed settings.
+// Computes the adoption priority key for a cat using the featured breed settings
 double compute_adoption_key(const Cat *c, const Shelter *S)
 {
     double base = 1.6 * c->friendliness + 1.1 * c->health - 0.7 * c->age;
 
-    // Apply the featured breed multiplier if this cat's breed matches.
+    // Apply the featured breed multiplier if this cat's breed matches
     double mult = 1.0;
     if (S->featured_breed != NULL && strcmp(c->breed, S->featured_breed) == 0)
         mult = S->alpha;
@@ -109,12 +109,12 @@ double compute_adoption_key(const Cat *c, const Shelter *S)
     return base * mult + (-1e-6 * c->arrival_id);
 }
 
-// Computes the triage priority key for a cat. Lower means more urgent.
+// Computes the triage priority key for a cat
 double compute_triage_key(const Cat *c)
 {
     double key = (100 - c->health) * 2.0;
 
-    // Only add the age penalty for cats older than 12 years.
+    // Only add the age penalty for cats older than 12 years
     if (c->age > 12)
         key += (c->age - 12) * 1.0;
 
@@ -122,7 +122,7 @@ double compute_triage_key(const Cat *c)
     return key;
 }
 
-// Swaps two Cat pointers in the heap array.
+// Swaps two Cat pointers in the heap array
 void heap_swap(CatHeap *h, int i, int j)
 {
     Cat *tmp = h->arr[i];
@@ -130,32 +130,32 @@ void heap_swap(CatHeap *h, int i, int j)
     h->arr[j] = tmp;
 }
 
-// Runs percolate up on the heap starting at the given index.
+// Runs percolate up on the heap starting at the given index
 void percolate_up(CatHeap *h, int index)
 {
 
-    // Can only percolate up if the node isn't the root.
+    // Can only percolate up if the node isn't the root
     if (index <= 1)
         return;
 
-    // See if the current node has higher priority than its parent.
+    // See if the current node has higher priority than its parent
     if (compareTo(h->arr[index], h->arr[index / 2], h->mode) > 0)
     {
 
-        // Move our node up one level.
+        // Move our node up one level
         heap_swap(h, index, index / 2);
 
-        // See if it needs to be done again.
+        // See if it needs to be done again
         percolate_up(h, index / 2);
     }
 }
 
-// Runs percolate down on the heap starting at the given index.
+// Runs percolate down on the heap starting at the given index
 void percolate_down(CatHeap *h, int index)
 {
     int best = index;
 
-    // Find the highest-priority child among those that exist.
+    // Find the highest-priority child among those that exist
     if (2 * index <= h->size &&
         compareTo(h->arr[2 * index], h->arr[best], h->mode) > 0)
         best = 2 * index;
@@ -164,7 +164,7 @@ void percolate_down(CatHeap *h, int index)
         compareTo(h->arr[2 * index + 1], h->arr[best], h->mode) > 0)
         best = 2 * index + 1;
 
-    // If a child beat the current node, swap and keep going down.
+    // If a child beat the current node, swap and keep going down
     if (best != index)
     {
         heap_swap(h, index, best);
@@ -174,28 +174,28 @@ void percolate_down(CatHeap *h, int index)
     }
 }
 
-// Inserts a cat pointer into the heap, then lets it percolate up to the right spot.
+// Inserts a cat pointer into the heap, then lets it percolate up to the right spot
 void heap_insert(CatHeap *h, Cat *cat)
 {
 
-    // Our array is full, we need to allocate some new space!
+    // Our array is full, we need to allocate some new space
     if (h->size + 1 >= h->capacity)
     {
         h->capacity *= 2;
         h->arr = realloc(h->arr, sizeof(Cat *) * (h->capacity + 1));
     }
 
-    // Place the new cat at the end and restore heap order.
+    // Place the new cat at the end and restore heap order
     h->size++;
     h->arr[h->size] = cat;
     percolate_up(h, h->size);
 }
 
-// Removes the element at 1-based position idx and restores heap order.
+// Removes the element at 1-based position idx and restores heap order
 void heap_remove_at(CatHeap *h, int idx)
 {
 
-    // Copy the last element into the gap left by the removed cat.
+    // Copy the last element into the gap left by the removed cat
     h->arr[idx] = h->arr[h->size];
     h->size--;
 
@@ -206,7 +206,7 @@ void heap_remove_at(CatHeap *h, int idx)
     }
 }
 
-// Returns the index of the cat with the given name, or -1 if not found.
+// Returns the index of the cat with the given name, or -1 if not found
 int find_cat_index(const CatHeap *heap, const char *name)
 {
     for (int i = 1; i <= heap->size; i++)
@@ -219,7 +219,7 @@ int find_cat_index(const CatHeap *heap, const char *name)
 void recompute_all_keys_and_build(Shelter *S)
 {
 
-    // Step 1: update every cat's cached key for the current mode.
+    // update every cat's cached key for the current mode
     for (int i = 1; i <= S->heap.size; i++)
     {
         if (S->mode == MODE_ADOPTION)
@@ -228,18 +228,18 @@ void recompute_all_keys_and_build(Shelter *S)
             S->heap.arr[i]->key = compute_triage_key(S->heap.arr[i]);
     }
 
-    // Step 2: we form a heap by just running percolate down on the first half
+    // we form a heap by just running percolate down on the first half
     // of the elements, in reverse order.
     for (int i = S->heap.size / 2; i >= 1; i--)
         percolate_down(&S->heap, i);
 }
 
-// Allocates a new cat, sets its fields, computes its key, and inserts it into the heap.
-// Prints an error if a cat with the same name already exists.
+// Allocates a new cat, sets its fields, computes its key, and inserts it into the heap
+// Prints an error if a cat with the same name already exists
 void cmd_add(Shelter *S, const char *name, const char *breed, int age, int friendl, int health)
 {
 
-    // Make sure we don't add a duplicate name.
+    // Make sure we don't add a duplicate name
     if (find_cat_index(&S->heap, name) != -1)
     {
         printf("Name %s already exists.\n", name);
@@ -248,7 +248,7 @@ void cmd_add(Shelter *S, const char *name, const char *breed, int age, int frien
 
     Cat *cat = malloc(sizeof(Cat));
 
-    // Allocate only the exact memory needed for each string, then copy it in.
+    // Allocate only the exact memory needed for each string, then copy it in
     cat->name = malloc(strlen(name) + 1);
     strcpy(cat->name, name);
     cat->breed = malloc(strlen(breed) + 1);
@@ -260,7 +260,7 @@ void cmd_add(Shelter *S, const char *name, const char *breed, int age, int frien
     cat->quarantine = 0;
     cat->arrival_id = S->next_arrival_id++;
 
-    // Compute the priority key based on whatever mode we're currently in.
+    // Compute the priority key based on whatever mode we're currently in
     if (S->mode == MODE_ADOPTION)
         cat->key = compute_adoption_key(cat, S);
     else
@@ -270,13 +270,13 @@ void cmd_add(Shelter *S, const char *name, const char *breed, int age, int frien
     printf("Added %s.\n", name);
 }
 
-// Finds a cat by name and updates the requested field.
-// For numeric fields the key is recomputed and heap order is restored.
+// Finds a cat by name and updates the requested field
+// For numeric fields the key is recomputed and heap order is restored
 void cmd_update(Shelter *S, const char *name, const char *field, int new_value)
 {
     int idx = find_cat_index(&S->heap, name);
 
-    // Let the user know if no cat by that name exists.
+    // Let the user know if no cat by that name exists
     if (idx == -1)
     {
         printf("Cat %s not found.\n", name);
@@ -327,7 +327,7 @@ void cmd_update(Shelter *S, const char *name, const char *field, int new_value)
     }
 }
 
-// Finds a cat by name, remove it, and frees its memory.
+// Finds a cat by name, remove it, and frees its memory
 void cmd_remove(Shelter *S, const char *name)
 {
     int idx = find_cat_index(&S->heap, name);
@@ -346,7 +346,7 @@ void cmd_remove(Shelter *S, const char *name)
     printf("Removed %s.\n", name);
 }
 
-// Prints the top cat for the active mode without removing it from the heap.
+// Prints the top cat for the active mode without removing it from the heap
 void cmd_peek(const Shelter *S)
 {
     if (S->heap.size == 0)
@@ -355,7 +355,7 @@ void cmd_peek(const Shelter *S)
         return;
     }
 
-    // The root is always the highest priority cat.
+    // The root is always the highest priority cat
     Cat *top = S->heap.arr[1];
     const char *modeStr = (S->mode == MODE_ADOPTION) ? "ADOPTION" : "TRIAGE";
     printf("Top[%s]: [%s] (key=%.2f, name=%s, breed=%s, age=%d, friend=%d, health=%d)\n",
@@ -363,8 +363,8 @@ void cmd_peek(const Shelter *S)
            top->name, top->breed, top->age, top->friendliness, top->health);
 }
 
-// Serves the highest priority cat based on the current mode.
-// In adoption mode quarantined cats are skipped and then reinserted.
+// Serves the highest priority cat based on the current mode
+// In adoption mode quarantined cats are skipped and then reinserted
 void cmd_serve(Shelter *S)
 {
     if (S->heap.size == 0)
@@ -376,7 +376,7 @@ void cmd_serve(Shelter *S)
     if (S->mode == MODE_ADOPTION)
     {
 
-        // Pop cats off the top until find one that isn't quarantined.
+        // Pop cats off the top until find one that isn't quarantined
         Cat **skipped = malloc(sizeof(Cat *) * S->heap.size);
         int skipCount = 0;
         Cat *served = NULL;
@@ -386,18 +386,18 @@ void cmd_serve(Shelter *S)
             Cat *top = S->heap.arr[1];
             heap_remove_at(&S->heap, 1);
 
-            // This is the cat we want to adopt.
+            // This is the cat we want to adopt
             if (top->quarantine == 0)
             {
                 served = top;
                 break;
             }
 
-            // Save this quarantined cat so we can put it back afterwards.
+            // Save this quarantined cat so we can put it back afterwards
             skipped[skipCount++] = top;
         }
 
-        // Reinsert all the quarantined cats we temporarily removed.
+        // Reinsert all the quarantined cats we temporarily removed
         for (int i = 0; i < skipCount; i++)
             heap_insert(&S->heap, skipped[i]);
         free(skipped);
@@ -419,7 +419,7 @@ void cmd_serve(Shelter *S)
     else
     {
 
-        // In triage mode quarantine doesn't matter, so we just serve the root.
+        // In triage mode quarantine doesn't matter
         Cat *top = S->heap.arr[1];
         printf("Serve now: %s (key=%.2f, name=%s, breed=%s, age=%d, friend=%d, health=%d)\n",
                top->name, top->key,
@@ -444,19 +444,19 @@ void cmd_mode(Shelter *S, const char *mode_str)
         return;
     }
 
-    // Make sure the heap's comparator matches the new mode before rebuilding.
+    // Make sure the heap's comparator matches the new mode before rebuilding
     S->heap.mode = S->mode;
     recompute_all_keys_and_build(S);
     printf("Mode set to %s. Rebuilding priorities...\n", mode_str);
 }
 
-// Sets or clears the featured breed and alpha, then rebuilds priorities since keys change.
+// Sets or clears the featured breed and alpha
 void cmd_featured(Shelter *S, const char *breed, double alpha)
 {
     if (strcmp(breed, "NONE") == 0)
     {
 
-        // Clear the featured breed so no cat gets a multiplier.
+        // Clear the featured breed so no cat gets a multiplier
         free(S->featured_breed);
         S->featured_breed = NULL;
         recompute_all_keys_and_build(S);
@@ -465,7 +465,7 @@ void cmd_featured(Shelter *S, const char *breed, double alpha)
     else
     {
 
-        // Replace whatever the current featured breed was.
+        // Replace whatever the current featured breed was
         free(S->featured_breed);
         S->featured_breed = malloc(strlen(breed) + 1);
         strcpy(S->featured_breed, breed);
@@ -475,7 +475,7 @@ void cmd_featured(Shelter *S, const char *breed, double alpha)
     }
 }
 
-// Prints the top k cats in priority order without modifying the original heap.
+// Prints the top k cats in priority order without modifying the original heap
 void cmd_print(const Shelter *S, int k)
 {
     if (S->heap.size == 0)
@@ -484,7 +484,7 @@ void cmd_print(const Shelter *S, int k)
         return;
     }
 
-    // Set up the temp heap as a shallow copy  same pointers, separate array.
+    // Set up the temp heap same pointers, separate array
     CatHeap tmp;
     tmp.mode = S->heap.mode;
     tmp.size = S->heap.size;
@@ -493,14 +493,14 @@ void cmd_print(const Shelter *S, int k)
     for (int i = 1; i <= S->heap.size; i++)
         tmp.arr[i] = S->heap.arr[i];
 
-    // Extract and print up to k cats from the copy.
+    // Extract and print up to k cats from the copy
     const char *modeStr = (S->mode == MODE_ADOPTION) ? "ADOPTION" : "TRIAGE";
     for (int rank = 1; rank <= k && tmp.size > 0; rank++)
     {
         Cat *top = tmp.arr[1];
         printf("[%d] %s (key=%.2f, %s)\n", rank, top->name, top->key, modeStr);
 
-        // Move the last element to the root and let it find its right spot.
+        // Move the last element to the root and let it find its right spot
         tmp.arr[1] = tmp.arr[tmp.size];
         tmp.size--;
         if (tmp.size > 0)
@@ -512,7 +512,7 @@ void cmd_print(const Shelter *S, int k)
 int main(void)
 {
 
-    // Set up the shelter with adoption mode and no featured breed to start.
+    // Set up the shelter with adoption mode and no featured breed to start
     Shelter S;
     S.mode = MODE_ADOPTION;
     S.featured_breed = NULL;
@@ -585,7 +585,7 @@ int main(void)
         }
     }
 
-    // Free every remaining cat before we exit.
+    // Free every remaining cat
     for (int i = 1; i <= S.heap.size; i++)
     {
         free(S.heap.arr[i]->name);
