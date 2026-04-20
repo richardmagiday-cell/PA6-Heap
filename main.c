@@ -363,7 +363,7 @@ void cmd_peek(const Shelter *S)
            top->name, top->breed, top->age, top->friendliness, top->health);
 }
 
-// Serves the highest-priority cat based on the current mode.
+// Serves the highest priority cat based on the current mode.
 // In adoption mode quarantined cats are skipped and then reinserted.
 void cmd_serve(Shelter *S)
 {
@@ -484,7 +484,7 @@ void cmd_print(const Shelter *S, int k)
         return;
     }
 
-    // Set up the temp heap as a shallow copy — same pointers, separate array.
+    // Set up the temp heap as a shallow copy  same pointers, separate array.
     CatHeap tmp;
     tmp.mode = S->heap.mode;
     tmp.size = S->heap.size;
